@@ -33,8 +33,54 @@ const db = getFirestore(app);
 
 // Initialize Cloud Firestore and get a reference to the service
 
-const querySnapshot = await getDocs(collection(db, "mobile"));
-querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
-});
+// const querySnapshot = await getDocs(collection(db, "mobile"));
+// querySnapshot.forEach((doc) => {
+//     // doc.data() is never undefined for query doc snapshots
+//     console.log(doc.id, " => ", doc.data());
+// });.
+async function displayProducts() {
+    const productCollection = collection(db, "mobile");
+    const querySnapshot = await getDocs(productCollection);
+
+    const swiperWrapper = document.querySelector(".swiper-wrapper-2");
+    console.log("🚀 ~ displayProducts ~ swiperWrapper:", swiperWrapper)
+
+    querySnapshot.forEach((doc) => {
+        const product = doc.data();
+
+        // Create a swiper-slide element
+        const slide = document.createElement("div");
+        slide.classList.add("swiper-slide");
+
+        // Add product content to the slide
+        slide.innerHTML = `
+            <div class="product-card position-relative">
+                <div class="image-holder">
+                  <img src="images/product-item1.jpg" alt="product-item" class="img-fluid">
+
+                </div>
+                <div class="cart-concern position-absolute">
+                    <div class="cart-button d-flex">
+                        <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                    <h3 class="card-title text-uppercase">
+                        <a href="#">${product.Name}</a>
+                    </h3>
+                    <span class="item-price text-primary">${product.Price} VND</span>
+                </div>
+                <p class="product-info">${product.Information}</p>
+            </div>
+        `;
+
+        // Append the slide to the swiper-wrapper
+        swiperWrapper.appendChild(slide);
+    });
+
+    // Reinitialize Swiper after adding slides
+
+}
+
+// Call the function to display products
+displayProducts();
