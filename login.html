@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng Nhập - Cửa Hàng Điện Thoại</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #388e3c;
+        }
+
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            color: red;
+        }
+
+        .footer-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .footer-link a {
+            color: #2196F3;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+        <h2>Đăng Nhập</h2>
+        <input type="text" id="username" placeholder="Tên đăng nhập">
+        <input type="password" id="password" placeholder="Mật khẩu">
+        <button onclick="login()">Đăng Nhập</button>
+        <div class="message" id="message"></div>
+        <div class="footer-link">
+            Chưa có tài khoản? <a href="register.html">Đăng kí ngay</a>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const message = document.getElementById('message');
+
+            if (!username || !password) {
+                message.textContent = "Vui lòng nhập đầy đủ thông tin.";
+                return;
+            }
+
+            // Giả lập tài khoản (có thể thay bằng API thực tế)
+            const demoUser = "admin";
+            const demoPass = "123456";
+
+            if (username === demoUser && password === demoPass) {
+                message.style.color = "green";
+                message.textContent = "Đăng nhập thành công!";
+                setTimeout(() => {
+                    window.location.href = "phone-detail.html"; // chuyển đến trang chi tiết nếu có
+                }, 1500);
+            } else {
+                message.style.color = "red";
+                message.textContent = "Sai tên đăng nhập hoặc mật khẩu.";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

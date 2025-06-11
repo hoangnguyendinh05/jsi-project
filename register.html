@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng Ký - Cửa Hàng Điện Thoại</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .register-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #1976D2;
+        }
+
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            color: red;
+        }
+
+        .footer-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .footer-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="register-box">
+        <h2>Đăng Ký Tài Khoản</h2>
+        <input type="text" id="username" placeholder="Tên đăng nhập">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Mật khẩu">
+        <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu">
+        <button onclick="register()">Đăng Ký</button>
+        <div class="message" id="message"></div>
+        <div class="footer-link">
+            Đã có tài khoản? <a href="login.html">Đăng nhập</a>
+        </div>
+    </div>
+
+    <script>
+        function register() {
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const message = document.getElementById('message');
+
+            if (!username || !email || !password || !confirmPassword) {
+                message.style.color = "red";
+                message.textContent = "Vui lòng nhập đầy đủ thông tin.";
+                return;
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                message.style.color = "red";
+                message.textContent = "Email không hợp lệ.";
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                message.style.color = "red";
+                message.textContent = "Mật khẩu không khớp.";
+                return;
+            }
+
+            // Thành công (ở thực tế cần gửi dữ liệu lên server)
+            message.style.color = "green";
+            message.textContent = "Đăng ký thành công! Đang chuyển hướng...";
+
+            setTimeout(() => {
+                window.location.href = "login.html"; // chuyển đến trang đăng nhập
+            }, 2000);
+        }
+    </script>
+
+</body>
+
+</html>
