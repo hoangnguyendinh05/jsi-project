@@ -2,131 +2,166 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Đăng Ký - Cửa Hàng Điện Thoại</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Ký</title>
+
+</head>
+
+<body>
+    <div class="register-box">
+        <h2>Đăng ký</h2>
+        <form id="registerForm">
+            <div class="input-group">
+                <input type="text" id="username" required />
+                <label for="username">Tên người dùng</label>
+            </div>
+            <div class="input-group">
+                <input type="email" id="email" required />
+                <label for="email">Email</label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" required />
+                <label for="password">Mật khẩu</label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="confirmPassword" required />
+                <label for="confirmPassword">Xác nhận mật khẩu</label>
+            </div>
+            <button type="submit">Tạo tài khoản</button>
+            <p class="error" id="errorMsg"></p>
+            <p class="success" id="successMsg"></p>
+        </form>
+    </div>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
         }
 
         .register-box {
             background: white;
             padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 25px;
+        .register-box h2 {
+            margin-bottom: 30px;
             color: #333;
         }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group input {
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 14px;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            color: #aaa;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .input-group input:focus+label,
+        .input-group input:valid+label {
+            top: -10px;
+            left: 0;
+            font-size: 12px;
+            color: #ff4b2b;
         }
 
         button {
             width: 100%;
             padding: 12px;
-            background-color: #2196F3;
+            background: #ff4b2b;
             color: white;
-            border: none;
             font-size: 16px;
+            border: none;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 10px;
+            transition: 0.3s;
         }
 
         button:hover {
-            background-color: #1976D2;
+            background: #ff416c;
         }
 
-        .message {
-            margin-top: 15px;
-            text-align: center;
+        .error {
+            margin-top: 10px;
             color: red;
+            font-size: 14px;
         }
 
-        .footer-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .footer-link a {
-            color: #4CAF50;
-            text-decoration: none;
+        .success {
+            margin-top: 10px;
+            color: green;
+            font-size: 14px;
         }
     </style>
-</head>
+    <script>document.getElementById("registerForm").addEventListener("submit", function (e) {
+            e.preventDefault();
 
-<body>
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const confirmPassword = document.getElementById("confirmPassword").value.trim();
+            const errorMsg = document.getElementById("errorMsg");
+            const successMsg = document.getElementById("successMsg");
 
-    <div class="register-box">
-        <h2>Đăng Ký Tài Khoản</h2>
-        <input type="text" id="username" placeholder="Tên đăng nhập">
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Mật khẩu">
-        <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu">
-        <button onclick="register()">Đăng Ký</button>
-        <div class="message" id="message"></div>
-        <div class="footer-link">
-            Đã có tài khoản? <a href="login.html">Đăng nhập</a>
-        </div>
-    </div>
-
-    <script>
-        function register() {
-            const username = document.getElementById('username').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const message = document.getElementById('message');
+            errorMsg.textContent = "";
+            successMsg.textContent = "";
 
             if (!username || !email || !password || !confirmPassword) {
-                message.style.color = "red";
-                message.textContent = "Vui lòng nhập đầy đủ thông tin.";
+                errorMsg.textContent = "Vui lòng điền đầy đủ thông tin.";
                 return;
             }
 
-            if (!email.includes('@') || !email.includes('.')) {
-                message.style.color = "red";
-                message.textContent = "Email không hợp lệ.";
+            if (!email.includes("@") || !email.includes(".")) {
+                errorMsg.textContent = "Email không hợp lệ.";
+                return;
+            }
+
+            if (password.length < 6) {
+                errorMsg.textContent = "Mật khẩu phải có ít nhất 6 ký tự.";
                 return;
             }
 
             if (password !== confirmPassword) {
-                message.style.color = "red";
-                message.textContent = "Mật khẩu không khớp.";
+                errorMsg.textContent = "Mật khẩu xác nhận không khớp.";
                 return;
             }
 
-            // Thành công (ở thực tế cần gửi dữ liệu lên server)
-            message.style.color = "green";
-            message.textContent = "Đăng ký thành công! Đang chuyển hướng...";
+            // Nếu tất cả hợp lệ
+            successMsg.textContent = "Đăng ký thành công!";
+            errorMsg.textContent = "";
 
-            setTimeout(() => {
-                window.location.href = "login.html"; // chuyển đến trang đăng nhập
-            }, 2000);
-        }
-    </script>
-
+            // Có thể gửi dữ liệu đến server tại đây
+            // Ví dụ: fetch("api/register", { method: "POST", body: ... })
+        });</script>
 </body>
 
 </html>

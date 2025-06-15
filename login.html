@@ -2,120 +2,137 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Đăng Nhập - Cửa Hàng Điện Thoại</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang Đăng Nhập</title>
+  
+</head>
+
+<body>
+    <div class="login-box">
+        <h2>Đăng nhập</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="text" id="username" required />
+                <label for="username">Tên người dùng</label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" required />
+                <label for="password">Mật khẩu</label>
+            </div>
+            <button type="submit">Đăng nhập</button>
+            <p class="error" id="errorMsg"></p>
+            <div class="footer-link">
+                Chưa có tài khoản? <a href="register.html">Đăng kí</a>
+            </div>
+        </form>
+    </div>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
         }
 
         .login-box {
             background: white;
             padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 25px;
+        .login-box h2 {
+            margin-bottom: 30px;
             color: #333;
         }
 
-        input[type="text"],
-        input[type="password"] {
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group input {
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 14px;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            color: #aaa;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .input-group input:focus+label,
+        .input-group input:valid+label {
+            top: -10px;
+            left: 0;
+            font-size: 12px;
+            color: #2575fc;
         }
 
         button {
             width: 100%;
             padding: 12px;
-            background-color: #4CAF50;
+            background: #2575fc;
             color: white;
-            border: none;
             font-size: 16px;
+            border: none;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 10px;
+            transition: 0.3s;
         }
 
         button:hover {
-            background-color: #388e3c;
+            background: #1a5ee8;
         }
 
-        .message {
+        .error {
             margin-top: 15px;
-            text-align: center;
             color: red;
-        }
-
-        .footer-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .footer-link a {
-            color: #2196F3;
-            text-decoration: none;
+            font-size: 14px;
         }
     </style>
-</head>
+    <script>document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // Ngăn chặn reload trang
 
-<body>
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const errorMsg = document.getElementById("errorMsg");
 
-    <div class="login-box">
-        <h2>Đăng Nhập</h2>
-        <input type="text" id="username" placeholder="Tên đăng nhập">
-        <input type="password" id="password" placeholder="Mật khẩu">
-        <button onclick="login()">Đăng Nhập</button>
-        <div class="message" id="message"></div>
-        <div class="footer-link">
-            Chưa có tài khoản? <a href="register.html">Đăng kí ngay</a>
-        </div>
-    </div>
-
-    <script>
-        function login() {
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const message = document.getElementById('message');
-
-            if (!username || !password) {
-                message.textContent = "Vui lòng nhập đầy đủ thông tin.";
+            // Kiểm tra đơn giản
+            if (username === "" || password === "") {
+                errorMsg.textContent = "Vui lòng điền đầy đủ thông tin!";
                 return;
             }
 
-            // Giả lập tài khoản (có thể thay bằng API thực tế)
-            const demoUser = "admin";
-            const demoPass = "123456";
-
-            if (username === demoUser && password === demoPass) {
-                message.style.color = "green";
-                message.textContent = "Đăng nhập thành công!";
-                setTimeout(() => {
-                    window.location.href = "phone-detail.html"; // chuyển đến trang chi tiết nếu có
-                }, 1500);
+            if (username === "admin" && password === "123456") {
+                alert("Đăng nhập thành công!");
+                errorMsg.textContent = "";
+                // Có thể chuyển hướng sang trang chính bằng:
+                // window.location.href = "dashboard.html";
             } else {
-                message.style.color = "red";
-                message.textContent = "Sai tên đăng nhập hoặc mật khẩu.";
+                errorMsg.textContent = "Sai tên đăng nhập hoặc mật khẩu.";
             }
-        }
+        });
     </script>
-
 </body>
 
 </html>
